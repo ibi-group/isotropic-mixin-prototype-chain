@@ -1,38 +1,26 @@
-import {
-    describe,
-    it
-} from 'mocha';
+import * as _mixinPrototypeChain from '../js/mixin-prototype-chain.js';
+import _chai from 'chai';
+import _make from 'isotropic-make';
+import _mocha from 'mocha';
 
-import {
-    mixinPrototypeChainFromInstanceObject,
-    mixinPrototypeChainFromPrototypeObject,
-    mixinPrototypeChainFromStaticObject
-} from '../js/mixin-prototype-chain.js';
-
-import {
-    expect
-} from 'chai';
-
-import make from 'isotropic-make';
-
-describe('mixin-prototype-chain', () => {
-    describe('mixinPrototypeChainFromInstanceObject', () => {
-        it('should yield object and mixin prototypes', () => {
-            const A = make({
+_mocha.describe('mixin-prototype-chain', () => {
+    _mocha.describe('mixinPrototypeChainFromInstanceObject', () => {
+        _mocha.it('should yield object and mixin prototypes', () => {
+            const A = _make({
                     a: 'a'
                 }),
-                B = make(A, {
+                B = _make(A, {
                     b: 'b'
                 }),
-                C = make([
+                C = _make([
                     B
                 ], {
                     c: 'c'
                 }),
-                D = make({
+                D = _make({
                     d: 'd'
                 }),
-                E = make(D, [
+                E = _make(D, [
                     C
                 ], {
                     e: 'e'
@@ -40,11 +28,11 @@ describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of mixinPrototypeChainFromInstanceObject(e)) {
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromInstanceObject(e)) {
                 objects.push(object);
             }
 
-            expect(objects).to.deep.equal([
+            _chai.expect(objects).to.deep.equal([
                 e,
                 E.prototype,
                 C.prototype,
@@ -55,23 +43,23 @@ describe('mixin-prototype-chain', () => {
         });
     });
 
-    describe('mixinPrototypeChainFromPrototypeObject', () => {
-        it('should yield object and mixin prototypes', () => {
-            const A = make({
+    _mocha.describe('mixinPrototypeChainFromPrototypeObject', () => {
+        _mocha.it('should yield object and mixin prototypes', () => {
+            const A = _make({
                     a: 'a'
                 }),
-                B = make(A, {
+                B = _make(A, {
                     b: 'b'
                 }),
-                C = make([
+                C = _make([
                     B
                 ], {
                     c: 'c'
                 }),
-                D = make({
+                D = _make({
                     d: 'd'
                 }),
-                E = make(D, [
+                E = _make(D, [
                     C
                 ], {
                     e: 'e'
@@ -79,11 +67,11 @@ describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(e))) {
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(e))) {
                 objects.push(object);
             }
 
-            expect(objects).to.deep.equal([
+            _chai.expect(objects).to.deep.equal([
                 E.prototype,
                 C.prototype,
                 B.prototype,
@@ -93,34 +81,34 @@ describe('mixin-prototype-chain', () => {
         });
     });
 
-    describe('mixinPrototypeChainFromStaticObject', () => {
-        it('should yield object and mixin prototypes', () => {
-            const A = make({
+    _mocha.describe('mixinPrototypeChainFromStaticObject', () => {
+        _mocha.it('should yield object and mixin prototypes', () => {
+            const A = _make({
                     a: 'a'
                 }),
-                B = make(A, {
+                B = _make(A, {
                     b: 'b'
                 }),
-                C = make([
+                C = _make([
                     B
                 ], {
                     c: 'c'
                 }),
-                D = make({
+                D = _make({
                     d: 'd'
                 }),
-                E = make(D, [
+                E = _make(D, [
                     C
                 ], {
                     e: 'e'
                 }),
                 objects = [];
 
-            for (const object of mixinPrototypeChainFromStaticObject(E)) {
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromStaticObject(E)) {
                 objects.push(object);
             }
 
-            expect(objects).to.deep.equal([
+            _chai.expect(objects).to.deep.equal([
                 E,
                 C,
                 B,
