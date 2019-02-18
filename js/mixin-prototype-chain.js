@@ -9,7 +9,9 @@ const _mixinPrototypeChainFromStaticObject = function* (object) {
             yield object;
 
             if (Array.isArray(object.mixins)) {
-                for (const mixin of object.mixins) {
+                for (let mixinIndex = object.mixins.length - 1; mixinIndex >= 0; mixinIndex -= 1) {
+                    const mixin = object.mixins[mixinIndex];
+
                     for (const object of _mixinPrototypeChainFromStaticObject(mixin)) {
                         yield object;
                     }
@@ -27,7 +29,9 @@ const _mixinPrototypeChainFromStaticObject = function* (object) {
             yield object;
 
             if (Array.isArray(object.constructor && object.constructor.mixins)) {
-                for (const mixin of object.constructor.mixins) {
+                for (let mixinIndex = object.constructor.mixins.length - 1; mixinIndex >= 0; mixinIndex -= 1) {
+                    const mixin = object.constructor.mixins[mixinIndex];
+
                     for (const object of _mixinPrototypeChainFromStaticObject(mixin)) {
                         yield object.prototype;
                     }

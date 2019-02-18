@@ -41,6 +41,44 @@ _mocha.describe('mixin-prototype-chain', () => {
                 D.prototype
             ]);
         });
+
+        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+            const A = _make({
+                    a: 'a'
+                }),
+                B = _make({
+                    b: 'b'
+                }),
+                C = _make({
+                    c: 'c'
+                }),
+                D = _make({
+                    d: 'd'
+                }),
+                E = _make([
+                    A,
+                    B,
+                    C,
+                    D
+                ], {
+                    e: 'e'
+                }),
+                e = E(),
+                objects = [];
+
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromInstanceObject(e)) {
+                objects.push(object);
+            }
+
+            _chai.expect(objects).to.deep.equal([
+                e,
+                E.prototype,
+                D.prototype,
+                C.prototype,
+                B.prototype,
+                A.prototype
+            ]);
+        });
     });
 
     _mocha.describe('mixinPrototypeChainFromPrototypeObject', () => {
@@ -79,6 +117,43 @@ _mocha.describe('mixin-prototype-chain', () => {
                 D.prototype
             ]);
         });
+
+        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+            const A = _make({
+                    a: 'a'
+                }),
+                B = _make({
+                    b: 'b'
+                }),
+                C = _make({
+                    c: 'c'
+                }),
+                D = _make({
+                    d: 'd'
+                }),
+                E = _make([
+                    A,
+                    B,
+                    C,
+                    D
+                ], {
+                    e: 'e'
+                }),
+                e = E(),
+                objects = [];
+
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(e))) {
+                objects.push(object);
+            }
+
+            _chai.expect(objects).to.deep.equal([
+                E.prototype,
+                D.prototype,
+                C.prototype,
+                B.prototype,
+                A.prototype
+            ]);
+        });
     });
 
     _mocha.describe('mixinPrototypeChainFromStaticObject', () => {
@@ -114,6 +189,42 @@ _mocha.describe('mixin-prototype-chain', () => {
                 B,
                 A,
                 D
+            ]);
+        });
+
+        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+            const A = _make({
+                    a: 'a'
+                }),
+                B = _make({
+                    b: 'b'
+                }),
+                C = _make({
+                    c: 'c'
+                }),
+                D = _make({
+                    d: 'd'
+                }),
+                E = _make([
+                    A,
+                    B,
+                    C,
+                    D
+                ], {
+                    e: 'e'
+                }),
+                objects = [];
+
+            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromStaticObject(E)) {
+                objects.push(object);
+            }
+
+            _chai.expect(objects).to.deep.equal([
+                E,
+                D,
+                C,
+                B,
+                A
             ]);
         });
     });
