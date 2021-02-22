@@ -1,7 +1,7 @@
 import * as _mixinPrototypeChain from '../js/mixin-prototype-chain.js';
-import _chai from 'chai';
+import _chai from 'isotropic-dev-dependencies/lib/chai.js';
 import _make from 'isotropic-make';
-import _mocha from 'mocha';
+import _mocha from 'isotropic-dev-dependencies/lib/mocha.js';
 
 _mocha.describe('mixin-prototype-chain', () => {
     _mocha.describe('mixinPrototypeChainFromInstanceObject', () => {
