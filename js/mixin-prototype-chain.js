@@ -1,26 +1,14 @@
 import _prototypeChain from 'isotropic-prototype-chain';
 
-const _mixinPrototypeChainFromStaticObject = function* (object) {
-        for (object of _prototypeChain(object)) {
-            if (object === Object) {
-                break;
-            }
+const _mixinPrototypeChain = {
+    * fromInstanceObject (object) {
+        yield object;
 
+        for (object of _mixinPrototypeChain.fromPrototypeObject(Reflect.getPrototypeOf(object))) {
             yield object;
-
-            if (Array.isArray(object.mixins)) {
-                for (let mixinIndex = object.mixins.length - 1; mixinIndex >= 0; mixinIndex -= 1) {
-                    const mixin = object.mixins[mixinIndex];
-
-                    for (const object of _mixinPrototypeChainFromStaticObject(mixin)) {
-                        yield object;
-                    }
-                }
-            }
         }
     },
-
-    _mixinPrototypeChainFromPrototypeObject = function* (object) {
+    * fromPrototypeObject (object) {
         for (object of _prototypeChain(object)) {
             if (object === Object.prototype) {
                 break;
@@ -32,24 +20,32 @@ const _mixinPrototypeChainFromStaticObject = function* (object) {
                 for (let mixinIndex = object.constructor.mixins.length - 1; mixinIndex >= 0; mixinIndex -= 1) {
                     const mixin = object.constructor.mixins[mixinIndex];
 
-                    for (const object of _mixinPrototypeChainFromStaticObject(mixin)) {
+                    for (const object of _mixinPrototypeChain.fromStaticObject(mixin)) {
                         yield object.prototype;
                     }
                 }
             }
         }
     },
+    * fromStaticObject (object) {
+        for (object of _prototypeChain(object)) {
+            if (object === Object) {
+                break;
+            }
 
-    _mixinPrototypeChainFromInstanceObject = function* (object) {
-        yield object;
-
-        for (object of _mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(object))) {
             yield object;
-        }
-    };
 
-export {
-    _mixinPrototypeChainFromInstanceObject as mixinPrototypeChainFromInstanceObject,
-    _mixinPrototypeChainFromPrototypeObject as mixinPrototypeChainFromPrototypeObject,
-    _mixinPrototypeChainFromStaticObject as mixinPrototypeChainFromStaticObject
+            if (Array.isArray(object.mixins)) {
+                for (let mixinIndex = object.mixins.length - 1; mixinIndex >= 0; mixinIndex -= 1) {
+                    const mixin = object.mixins[mixinIndex];
+
+                    for (const object of _mixinPrototypeChain.fromStaticObject(mixin)) {
+                        yield object;
+                    }
+                }
+            }
+        }
+    }
 };
+
+export default _mixinPrototypeChain;

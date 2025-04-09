@@ -1,10 +1,10 @@
-import * as _mixinPrototypeChain from '../js/mixin-prototype-chain.js';
 import _chai from 'isotropic-dev-dependencies/lib/chai.js';
 import _make from 'isotropic-make';
+import _mixinPrototypeChain from '../js/mixin-prototype-chain.js';
 import _mocha from 'isotropic-dev-dependencies/lib/mocha.js';
 
 _mocha.describe('mixin-prototype-chain', () => {
-    _mocha.describe('mixinPrototypeChainFromInstanceObject', () => {
+    _mocha.describe('mixinPrototypeChain.fromInstanceObject', () => {
         _mocha.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
@@ -28,7 +28,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromInstanceObject(e)) {
+            for (const object of _mixinPrototypeChain.fromInstanceObject(e)) {
                 objects.push(object);
             }
 
@@ -66,7 +66,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromInstanceObject(e)) {
+            for (const object of _mixinPrototypeChain.fromInstanceObject(e)) {
                 objects.push(object);
             }
 
@@ -81,7 +81,7 @@ _mocha.describe('mixin-prototype-chain', () => {
         });
     });
 
-    _mocha.describe('mixinPrototypeChainFromPrototypeObject', () => {
+    _mocha.describe('mixinPrototypeChain.fromPrototypeObject', () => {
         _mocha.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
@@ -105,7 +105,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(e))) {
+            for (const object of _mixinPrototypeChain.fromPrototypeObject(Reflect.getPrototypeOf(e))) {
                 objects.push(object);
             }
 
@@ -142,7 +142,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 e = E(),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromPrototypeObject(Reflect.getPrototypeOf(e))) {
+            for (const object of _mixinPrototypeChain.fromPrototypeObject(Reflect.getPrototypeOf(e))) {
                 objects.push(object);
             }
 
@@ -156,7 +156,7 @@ _mocha.describe('mixin-prototype-chain', () => {
         });
     });
 
-    _mocha.describe('mixinPrototypeChainFromStaticObject', () => {
+    _mocha.describe('mixinPrototypeChain.fromStaticObject', () => {
         _mocha.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
@@ -179,7 +179,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 }),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromStaticObject(E)) {
+            for (const object of _mixinPrototypeChain.fromStaticObject(E)) {
                 objects.push(object);
             }
 
@@ -215,7 +215,7 @@ _mocha.describe('mixin-prototype-chain', () => {
                 }),
                 objects = [];
 
-            for (const object of _mixinPrototypeChain.mixinPrototypeChainFromStaticObject(E)) {
+            for (const object of _mixinPrototypeChain.fromStaticObject(E)) {
                 objects.push(object);
             }
 
