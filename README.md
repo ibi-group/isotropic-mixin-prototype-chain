@@ -28,19 +28,19 @@ import _make from 'isotropic-make';
 import _mixinPrototypeChain from 'isotropic-mixin-prototype-chain';
 
 // Create a class hierarchy with mixins
-const _Formatter = _make({
+const _Formatter = _make('Formatter', {
         format (text) {
             return `[Formatted]: ${text}`;
         }
     }),
-    _Logger = _make({
+    _Logger = _make('Logger', {
         log (message) {
             console.log(message);
         }
     }),
 
     // Inherit from Formatter and use Logger as a mixin
-    _EnhancedFormatter = _make(_Formatter, [
+    _EnhancedFormatter = _make('EnhancedFormatter', _Formatter, [
         _Logger
     ], {
         enhancedFormat (text) {
@@ -135,41 +135,33 @@ import _make from 'isotropic-make';
 import _mixinPrototypeChain from 'isotropic-mixin-prototype-chain';
 
 // Define some behaviors as mixins
-const _Loggable = _make({
+const _Loggable = _make('Loggable', {
         log (message) {
             console.log(`[${this.name}]: ${message}`);
         }
-    }, {
-        name: '_Loggable'
     }),
-    _Serializable = _make({
+    _Serializable = _make('Serializable', {
         toJSON () {
             return JSON.stringify(this);
         }
-    }, {
-        name: '_Serializable'
     }),
 
     // Create a base class
-    _Entity = _make({
+    _Entity = _make('Entity', {
         _init (name) {
             this.name = name;
 
             return this;
         }
-    }, {
-        name: '_Entity'
     }),
     // Create a derived class with mixins
-    _User = _make(_Entity, [
+    _User = _make('User', _Entity, [
         _Loggable,
         _Serializable
     ], {
         greet () {
             return `Hello, I'm ${this.name}`;
         }
-    }, {
-        name: '_User'
     }),
 
     // Find all available methods on the instance
@@ -209,10 +201,10 @@ const _Loggable = _make({
     // Get all methods
     console.log(_getAllMethodSources(user));
     // {
-    //   log: [ '_User', '_Loggable' ],
-    //   toJSON: [ '_User', '_Serializable' ],
-    //   greet: [ '_User' ],
-    //   _init: [ '_Entity' ]
+    //   log: [ 'User', 'Loggable' ],
+    //   toJSON: [ 'User', 'Serializable' ],
+    //   greet: [ 'User' ],
+    //   _init: [ 'Entity' ]
     // }
 }
 ```
@@ -296,29 +288,21 @@ const _analyzeConstructorHierarchy = constructor => {
 
 {
     // Create a class hierarchy with mixins
-    const Base = _make({
+    const Base = _make('Base', {
             baseMethod () {}
-        }, {
-            name: 'Base'
         }),
-        MixinA = _make({
+        MixinA = _make('MixinA', {
             mixinAMethod () {}
-        }, {
-            name: 'MixinA'
         }),
-        MixinB = _make({
+        MixinB = _make('MixinB', {
             mixinBMethod () {}
-        }, {
-            name: 'MixinB'
         }),
 
-        Derived = _make(Base, [
+        Derived = _make('Derived', Base, [
             MixinA,
             MixinB
         ], {
             derivedMethod () {}
-        }, {
-            name: 'Derived'
         });
 
     // Analyze the hierarchy
