@@ -1,11 +1,11 @@
 import _chai from 'isotropic-dev-dependencies/lib/chai.js';
 import _make from 'isotropic-make';
-import _mixinPrototypeChain from '../js/mixin-prototype-chain.js';
-import _mocha from 'isotropic-dev-dependencies/lib/mocha.js';
+import _mixinPrototypeChain from '../lib/mixin-prototype-chain.js';
+import _test from 'node:test';
 
-_mocha.describe('mixin-prototype-chain', () => {
-    _mocha.describe('mixinPrototypeChain.fromInstanceObject', () => {
-        _mocha.it('should yield object and mixin prototypes', () => {
+_test.describe('mixin-prototype-chain', () => {
+    _test.describe('mixinPrototypeChain.fromInstanceObject', () => {
+        _test.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
                 }),
@@ -42,7 +42,7 @@ _mocha.describe('mixin-prototype-chain', () => {
             ]);
         });
 
-        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+        _test.it('should yield mixin prototypes in reverse definition order', () => {
             const A = _make({
                     a: 'a'
                 }),
@@ -81,8 +81,8 @@ _mocha.describe('mixin-prototype-chain', () => {
         });
     });
 
-    _mocha.describe('mixinPrototypeChain.fromPrototypeObject', () => {
-        _mocha.it('should yield object and mixin prototypes', () => {
+    _test.describe('mixinPrototypeChain.fromPrototypeObject', () => {
+        _test.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
                 }),
@@ -118,7 +118,7 @@ _mocha.describe('mixin-prototype-chain', () => {
             ]);
         });
 
-        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+        _test.it('should yield mixin prototypes in reverse definition order', () => {
             const A = _make({
                     a: 'a'
                 }),
@@ -156,8 +156,8 @@ _mocha.describe('mixin-prototype-chain', () => {
         });
     });
 
-    _mocha.describe('mixinPrototypeChain.fromStaticObject', () => {
-        _mocha.it('should yield object and mixin prototypes', () => {
+    _test.describe('mixinPrototypeChain.fromStaticObject', () => {
+        _test.it('should yield object and mixin prototypes', () => {
             const A = _make({
                     a: 'a'
                 }),
@@ -192,7 +192,7 @@ _mocha.describe('mixin-prototype-chain', () => {
             ]);
         });
 
-        _mocha.it('should yield mixin prototypes in reverse definition order', () => {
+        _test.it('should yield mixin prototypes in reverse definition order', () => {
             const A = _make({
                     a: 'a'
                 }),
